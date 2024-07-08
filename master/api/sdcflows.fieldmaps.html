@@ -224,7 +224,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../examples.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../notebooks/SDC%20-%20Theory%20and%20physics.html">Susceptibility Distortions (and Correction) in a nutshell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/SDC%20-%20Theory%20and%20physics.html">Susceptibility Distortions in a nutshell</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../methods.html">Methods and implementation</a></li>
@@ -365,6 +365,12 @@ and collects all the available metadata.</p>
 <dt class="sig sig-object py" id="sdcflows.fieldmaps.FieldmapEstimation.paths">
 <span class="sig-name descname"><span class="pre">paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/sdcflows/fieldmaps.html#FieldmapEstimation.paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sdcflows.fieldmaps.FieldmapEstimation.paths" title="Link to this definition">¶</a></dt>
 <dd><p>Return a tuple of paths that are sorted.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sdcflows.fieldmaps.FieldmapEstimation.sanitized_id">
+<span class="sig-name descname"><span class="pre">sanitized_id</span></span><a class="headerlink" href="#sdcflows.fieldmaps.FieldmapEstimation.sanitized_id" title="Link to this definition">¶</a></dt>
+<dd><p>Sanitized version of the bids_id with special characters replaced by underscores.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -601,6 +607,7 @@ will overwrite metadata read from sidecar JSON.</p>
 <li><a class="reference internal" href="#sdcflows.fieldmaps.FieldmapEstimation.get_workflow"><code class="docutils literal notranslate"><span class="pre">FieldmapEstimation.get_workflow()</span></code></a></li>
 <li><a class="reference internal" href="#sdcflows.fieldmaps.FieldmapEstimation.method"><code class="docutils literal notranslate"><span class="pre">FieldmapEstimation.method</span></code></a></li>
 <li><a class="reference internal" href="#sdcflows.fieldmaps.FieldmapEstimation.paths"><code class="docutils literal notranslate"><span class="pre">FieldmapEstimation.paths()</span></code></a></li>
+<li><a class="reference internal" href="#sdcflows.fieldmaps.FieldmapEstimation.sanitized_id"><code class="docutils literal notranslate"><span class="pre">FieldmapEstimation.sanitized_id</span></code></a></li>
 <li><a class="reference internal" href="#sdcflows.fieldmaps.FieldmapEstimation.sources"><code class="docutils literal notranslate"><span class="pre">FieldmapEstimation.sources</span></code></a></li>
 </ul>
 </li>

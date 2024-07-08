@@ -223,7 +223,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../../examples.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/SDC%20-%20Theory%20and%20physics.html">Susceptibility Distortions (and Correction) in a nutshell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../notebooks/SDC%20-%20Theory%20and%20physics.html">Susceptibility Distortions in a nutshell</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../methods.html">Methods and implementation</a></li>
@@ -408,9 +408,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">...interfaces.bspline</span> <span class="kn">import</span> <span class="p">(</span>
         <span class="n">BSplineApprox</span><span class="p">,</span>
-        <span class="n">DEFAULT_LF_ZOOMS_MM</span><span class="p">,</span>
         <span class="n">DEFAULT_HF_ZOOMS_MM</span><span class="p">,</span>
-        <span class="n">DEFAULT_ZOOMS_MM</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="kn">from</span> <span class="nn">...interfaces.fmap</span> <span class="kn">import</span> <span class="n">CheckRegister</span>
 
@@ -436,9 +434,11 @@
     <span class="n">magnitude_wf</span> <span class="o">=</span> <span class="n">init_magnitude_wf</span><span class="p">(</span><span class="n">omp_nthreads</span><span class="o">=</span><span class="n">omp_nthreads</span><span class="p">)</span>
     <span class="n">bs_filter</span> <span class="o">=</span> <span class="n">pe</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">BSplineApprox</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bs_filter&quot;</span><span class="p">)</span>
     <span class="n">bs_filter</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">_always_run</span> <span class="o">=</span> <span class="n">debug</span>
-    <span class="n">bs_filter</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">bs_spacing</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="p">[</span><span class="n">DEFAULT_LF_ZOOMS_MM</span><span class="p">,</span> <span class="n">DEFAULT_HF_ZOOMS_MM</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">sloppy</span> <span class="k">else</span> <span class="p">[</span><span class="n">DEFAULT_ZOOMS_MM</span><span class="p">]</span>
-    <span class="p">)</span>
+    <span class="n">bs_filter</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">bs_spacing</span> <span class="o">=</span> <span class="p">[</span><span class="n">DEFAULT_HF_ZOOMS_MM</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">sloppy</span><span class="p">:</span>
+        <span class="n">bs_filter</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">zooms_min</span> <span class="o">=</span> <span class="mf">4.0</span>
+
     <span class="n">bs_filter</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">extrapolate</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">debug</span>
 
     <span class="c1"># fmt: off</span>

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Methods and implementation" href="../methods.html" /><link rel="prev" title="Examples" href="../examples.html" />
 
     <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>Susceptibility Distortions (and Correction) in a nutshell - sdcflows 0+unknown documentation</title>
+        <title>Susceptibility Distortions in a nutshell - sdcflows 0+unknown documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
@@ -225,7 +225,7 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../examples.html">Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Susceptibility Distortions (and Correction) in a nutshell</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Susceptibility Distortions in a nutshell</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../methods.html">Methods and implementation</a></li>
@@ -325,8 +325,8 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="Susceptibility-Distortions-(and-Correction)-in-a-nutshell">
-<h1>Susceptibility Distortions (and Correction) in a nutshell<a class="headerlink" href="#Susceptibility-Distortions-(and-Correction)-in-a-nutshell" title="Link to this heading">¶</a></h1>
+          <section id="Susceptibility-Distortions-in-a-nutshell">
+<h1>Susceptibility Distortions in a nutshell<a class="headerlink" href="#Susceptibility-Distortions-in-a-nutshell" title="Link to this heading">¶</a></h1>
 <p>This notebook is an attempt to produce educational materials that would help an MRI beginner understand the problem of SD(C).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -340,7 +340,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1.inset_locator</span> <span class="kn">import</span> <span class="n">inset_axes</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
@@ -385,14 +386,14 @@
         <span class="n">ax</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="s2">&quot;200%&quot;</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
-        <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.4</span><span class="p">),</span>
+        <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">.6</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mf">.4</span><span class="p">),</span>
         <span class="n">bbox_transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
         <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">axins</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
 
     <span class="c1"># sub region of the original image</span>
-    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">z_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">48</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">z_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
     <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">z_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.70</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
     <span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">brain_slice</span><span class="p">[</span><span class="n">y1</span><span class="p">:</span><span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span><span class="n">x2</span><span class="p">],</span> <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">brain_cmap</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">);</span>
@@ -401,17 +402,20 @@
     <span class="n">axins</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
     <span class="n">axins</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">indicate_inset_zoom</span><span class="p">(</span><span class="n">axins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">);</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">indicate_inset_zoom</span><span class="p">(</span><span class="n">axins</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">);</span>
 
 
     <span class="k">if</span> <span class="n">grid</span><span class="p">:</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">voxel_centers_c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;norm&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">()</span>
             <span class="n">params</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voxel_centers_c</span>
             <span class="n">params</span><span class="p">[</span><span class="s2">&quot;cmap&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;seismic&quot;</span>
+        <span class="k">elif</span> <span class="n">voxel_centers_c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
 
         <span class="c1"># Voxel centers</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">get_centers</span><span class="p">(</span><span class="n">brain_slice</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">get_centers</span><span class="p">(</span><span class="n">brain_slice</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="n">axins</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">get_centers</span><span class="p">(</span><span class="n">brain_slice</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
         <span class="c1"># Voxel edges</span>
@@ -425,6 +429,18 @@
         <span class="n">axins</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">e_i</span><span class="p">,</span> <span class="p">[</span><span class="n">e_j</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">e_i</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
 
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span>
+
+<span class="k">def</span> <span class="nf">axis_cbar</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+    <span class="n">cbar</span> <span class="o">=</span> <span class="n">inset_axes</span><span class="p">(</span>
+        <span class="n">ax</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="s2">&quot;100%&quot;</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="s2">&quot;10%&quot;</span><span class="p">,</span>
+        <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">bbox_transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+        <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower center&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cbar</span>
 </pre></div>
 </div>
 </div>
@@ -507,7 +523,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asanyarray</span><span class="p">(</span><span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;fieldmap.nii.gz&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">dataobj</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">field</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;fieldmap.nii.gz&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -516,279 +532,17 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">);</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Error in callback &lt;function _draw_all_if_interactive at 0x7f59bcb14e00&gt; (for post_execute), with arguments args (),kwargs {}:
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/pyplot.py:265</span>, in <span class="ansi-cyan-fg">_draw_all_if_interactive</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">    263</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">_draw_all_if_interactive</span>() <span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">&gt;</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    264</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> matplotlib<span style="color: rgb(98,98,98)">.</span>is_interactive():
-<span class="ansi-green-fg">--&gt; 265</span>         <span class="ansi-yellow-bg">draw_all</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/_pylab_helpers.py:131</span>, in <span class="ansi-cyan-fg">Gcf.draw_all</span><span class="ansi-blue-fg">(cls, force)</span>
-<span class="ansi-green-intense-fg ansi-bold">    129</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> manager <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">cls</span><span style="color: rgb(98,98,98)">.</span>get_all_fig_managers():
-<span class="ansi-green-intense-fg ansi-bold">    130</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> force <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> manager<span style="color: rgb(98,98,98)">.</span>canvas<span style="color: rgb(98,98,98)">.</span>figure<span style="color: rgb(98,98,98)">.</span>stale:
-<span class="ansi-green-fg">--&gt; 131</span>         <span class="ansi-yellow-bg">manager</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">canvas</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw_idle</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/backend_bases.py:1919</span>, in <span class="ansi-cyan-fg">FigureCanvasBase.draw_idle</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1917</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_is_idle_drawing:
-<span class="ansi-green-intense-fg ansi-bold">   1918</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_idle_draw_cntx():
-<span class="ansi-green-fg">-&gt; 1919</span>         <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/backends/backend_agg.py:387</span>, in <span class="ansi-cyan-fg">FigureCanvasAgg.draw</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    384</span> <span style="color: rgb(95,135,135)"># Acquire a lock on the shared font cache.</span>
-<span class="ansi-green-intense-fg ansi-bold">    385</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> (<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>toolbar<span style="color: rgb(98,98,98)">.</span>_wait_cursor_for_draw_cm() <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>toolbar
-<span class="ansi-green-intense-fg ansi-bold">    386</span>       <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> nullcontext()):
-<span class="ansi-green-fg">--&gt; 387</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    388</span>     <span style="color: rgb(95,135,135)"># A GUI class may be need to update a window using this draw, so</span>
-<span class="ansi-green-intense-fg ansi-bold">    389</span>     <span style="color: rgb(95,135,135)"># don&#39;t forget to call the superclass.</span>
-<span class="ansi-green-intense-fg ansi-bold">    390</span>     <span style="color: rgb(0,135,0)">super</span>()<span style="color: rgb(98,98,98)">.</span>draw()
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:95</span>, in <span class="ansi-cyan-fg">_finalize_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     93</span> <span style="color: rgb(175,0,255)">@wraps</span>(draw)
-<span class="ansi-green-intense-fg ansi-bold">     94</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">draw_wrapper</span>(artist, renderer, <span style="color: rgb(98,98,98)">*</span>args, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
-<span class="ansi-green-fg">---&gt; 95</span>     result <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     96</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> renderer<span style="color: rgb(98,98,98)">.</span>_rasterizing:
-<span class="ansi-green-intense-fg ansi-bold">     97</span>         renderer<span style="color: rgb(98,98,98)">.</span>stop_rasterizing()
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/figure.py:3155</span>, in <span class="ansi-cyan-fg">Figure.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3152</span>             <span style="color: rgb(95,135,135)"># ValueError can occur when resizing a window.</span>
-<span class="ansi-green-intense-fg ansi-bold">   3154</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>patch<span style="color: rgb(98,98,98)">.</span>draw(renderer)
-<span class="ansi-green-fg">-&gt; 3155</span>     <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3156</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3158</span>     renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">figure</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3159</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/axes/_base.py:3109</span>, in <span class="ansi-cyan-fg">_AxesBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3106</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artists_rasterized:
-<span class="ansi-green-intense-fg ansi-bold">   3107</span>     _draw_rasterized(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure, artists_rasterized, renderer)
-<span class="ansi-green-fg">-&gt; 3109</span> <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3110</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3112</span> renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">axes</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3113</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stale <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:653</span>, in <span class="ansi-cyan-fg">_ImageBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">    651</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im, trans)
-<span class="ansi-green-intense-fg ansi-bold">    652</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">--&gt; 653</span>     im, l, b, trans <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">make_image</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_image_magnification</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    655</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> im <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    656</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:952</span>, in <span class="ansi-cyan-fg">AxesImage.make_image</span><span class="ansi-blue-fg">(self, renderer, magnification, unsampled)</span>
-<span class="ansi-green-intense-fg ansi-bold">    949</span> transformed_bbox <span style="color: rgb(98,98,98)">=</span> TransformedBbox(bbox, trans)
-<span class="ansi-green-intense-fg ansi-bold">    950</span> clip <span style="color: rgb(98,98,98)">=</span> ((<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_box() <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>axes<span style="color: rgb(98,98,98)">.</span>bbox) <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_on()
-<span class="ansi-green-intense-fg ansi-bold">    951</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure<span style="color: rgb(98,98,98)">.</span>bbox)
-<span class="ansi-green-fg">--&gt; 952</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_make_image</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_A</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transformed_bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">clip</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    953</span> <span class="ansi-yellow-bg">                        </span><span class="ansi-yellow-bg">magnification</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:539</span>, in <span class="ansi-cyan-fg">_ImageBase._make_image</span><span class="ansi-blue-fg">(self, A, in_bbox, out_bbox, clip_bbox, magnification, unsampled, round_to_pixel_border)</span>
-<span class="ansi-green-intense-fg ansi-bold">    537</span> alpha <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_alpha()
-<span class="ansi-green-intense-fg ansi-bold">    538</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> alpha <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> np<span style="color: rgb(98,98,98)">.</span>ndim(alpha) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">0</span>:
-<span class="ansi-green-fg">--&gt; 539</span>     out_alpha <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out_shape</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    540</span> <span class="ansi-yellow-bg">                           </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    541</span> <span style="color: rgb(95,135,135)"># mask and run through the norm</span>
-<span class="ansi-green-intense-fg ansi-bold">    542</span> resampled_masked <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>ma<span style="color: rgb(98,98,98)">.</span>masked_array(A_resampled, out_mask)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:208</span>, in <span class="ansi-cyan-fg">_resample</span><span class="ansi-blue-fg">(image_obj, data, out_shape, transform, resample, alpha)</span>
-<span class="ansi-green-intense-fg ansi-bold">    206</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> resample <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    207</span>     resample <span style="color: rgb(98,98,98)">=</span> image_obj<span style="color: rgb(98,98,98)">.</span>get_resample()
-<span class="ansi-green-fg">--&gt; 208</span> <span class="ansi-yellow-bg">_image</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transform</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    209</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">_interpd_</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">interpolation</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    210</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    211</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    212</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filternorm</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    213</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filterrad</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> out
-
-<span class="ansi-red-fg">ValueError</span>: arrays must be of dtype byte, short, float32 or float64
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/IPython/core/formatters.py:343</span>, in <span class="ansi-cyan-fg">BaseFormatter.__call__</span><span class="ansi-blue-fg">(self, obj)</span>
-<span class="ansi-green-intense-fg ansi-bold">    341</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">pass</span>
-<span class="ansi-green-intense-fg ansi-bold">    342</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">--&gt; 343</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">printer</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">obj</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    344</span> <span style="color: rgb(95,135,135)"># Finally look for special method names</span>
-<span class="ansi-green-intense-fg ansi-bold">    345</span> method <span style="color: rgb(98,98,98)">=</span> get_real_method(obj, <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>print_method)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/IPython/core/pylabtools.py:170</span>, in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-fg">(fig, fmt, bbox_inches, base64, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    167</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">matplotlib</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">backend_bases</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> FigureCanvasBase
-<span class="ansi-green-intense-fg ansi-bold">    168</span>     FigureCanvasBase(fig)
-<span class="ansi-green-fg">--&gt; 170</span> <span class="ansi-yellow-bg">fig</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">canvas</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">print_figure</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">bytes_io</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kw</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    171</span> data <span style="color: rgb(98,98,98)">=</span> bytes_io<span style="color: rgb(98,98,98)">.</span>getvalue()
-<span class="ansi-green-intense-fg ansi-bold">    172</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> fmt <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">svg</span><span style="color: rgb(175,0,0)">&#39;</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/backend_bases.py:2189</span>, in <span class="ansi-cyan-fg">FigureCanvasBase.print_figure</span><span class="ansi-blue-fg">(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, pad_inches, bbox_extra_artists, backend, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2186</span>     <span style="color: rgb(95,135,135)"># we do this instead of `self.figure.draw_without_rendering`</span>
-<span class="ansi-green-intense-fg ansi-bold">   2187</span>     <span style="color: rgb(95,135,135)"># so that we can inject the orientation</span>
-<span class="ansi-green-intense-fg ansi-bold">   2188</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span style="color: rgb(0,135,0)">getattr</span>(renderer, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">_draw_disabled</span><span style="color: rgb(175,0,0)">&#34;</span>, nullcontext)():
-<span class="ansi-green-fg">-&gt; 2189</span>         <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2190</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> bbox_inches:
-<span class="ansi-green-intense-fg ansi-bold">   2191</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> bbox_inches <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">tight</span><span style="color: rgb(175,0,0)">&#34;</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:95</span>, in <span class="ansi-cyan-fg">_finalize_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     93</span> <span style="color: rgb(175,0,255)">@wraps</span>(draw)
-<span class="ansi-green-intense-fg ansi-bold">     94</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">draw_wrapper</span>(artist, renderer, <span style="color: rgb(98,98,98)">*</span>args, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
-<span class="ansi-green-fg">---&gt; 95</span>     result <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     96</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> renderer<span style="color: rgb(98,98,98)">.</span>_rasterizing:
-<span class="ansi-green-intense-fg ansi-bold">     97</span>         renderer<span style="color: rgb(98,98,98)">.</span>stop_rasterizing()
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/figure.py:3155</span>, in <span class="ansi-cyan-fg">Figure.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3152</span>             <span style="color: rgb(95,135,135)"># ValueError can occur when resizing a window.</span>
-<span class="ansi-green-intense-fg ansi-bold">   3154</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>patch<span style="color: rgb(98,98,98)">.</span>draw(renderer)
-<span class="ansi-green-fg">-&gt; 3155</span>     <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3156</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3158</span>     renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">figure</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3159</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/axes/_base.py:3109</span>, in <span class="ansi-cyan-fg">_AxesBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3106</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artists_rasterized:
-<span class="ansi-green-intense-fg ansi-bold">   3107</span>     _draw_rasterized(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure, artists_rasterized, renderer)
-<span class="ansi-green-fg">-&gt; 3109</span> <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3110</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3112</span> renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">axes</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3113</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stale <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:653</span>, in <span class="ansi-cyan-fg">_ImageBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">    651</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im, trans)
-<span class="ansi-green-intense-fg ansi-bold">    652</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">--&gt; 653</span>     im, l, b, trans <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">make_image</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_image_magnification</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    655</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> im <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    656</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:952</span>, in <span class="ansi-cyan-fg">AxesImage.make_image</span><span class="ansi-blue-fg">(self, renderer, magnification, unsampled)</span>
-<span class="ansi-green-intense-fg ansi-bold">    949</span> transformed_bbox <span style="color: rgb(98,98,98)">=</span> TransformedBbox(bbox, trans)
-<span class="ansi-green-intense-fg ansi-bold">    950</span> clip <span style="color: rgb(98,98,98)">=</span> ((<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_box() <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>axes<span style="color: rgb(98,98,98)">.</span>bbox) <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_on()
-<span class="ansi-green-intense-fg ansi-bold">    951</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure<span style="color: rgb(98,98,98)">.</span>bbox)
-<span class="ansi-green-fg">--&gt; 952</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_make_image</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_A</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transformed_bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">clip</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    953</span> <span class="ansi-yellow-bg">                        </span><span class="ansi-yellow-bg">magnification</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:539</span>, in <span class="ansi-cyan-fg">_ImageBase._make_image</span><span class="ansi-blue-fg">(self, A, in_bbox, out_bbox, clip_bbox, magnification, unsampled, round_to_pixel_border)</span>
-<span class="ansi-green-intense-fg ansi-bold">    537</span> alpha <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_alpha()
-<span class="ansi-green-intense-fg ansi-bold">    538</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> alpha <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> np<span style="color: rgb(98,98,98)">.</span>ndim(alpha) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">0</span>:
-<span class="ansi-green-fg">--&gt; 539</span>     out_alpha <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out_shape</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    540</span> <span class="ansi-yellow-bg">                           </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    541</span> <span style="color: rgb(95,135,135)"># mask and run through the norm</span>
-<span class="ansi-green-intense-fg ansi-bold">    542</span> resampled_masked <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>ma<span style="color: rgb(98,98,98)">.</span>masked_array(A_resampled, out_mask)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:208</span>, in <span class="ansi-cyan-fg">_resample</span><span class="ansi-blue-fg">(image_obj, data, out_shape, transform, resample, alpha)</span>
-<span class="ansi-green-intense-fg ansi-bold">    206</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> resample <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    207</span>     resample <span style="color: rgb(98,98,98)">=</span> image_obj<span style="color: rgb(98,98,98)">.</span>get_resample()
-<span class="ansi-green-fg">--&gt; 208</span> <span class="ansi-yellow-bg">_image</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transform</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    209</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">_interpd_</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">interpolation</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    210</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    211</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    212</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filternorm</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    213</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filterrad</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> out
-
-<span class="ansi-red-fg">ValueError</span>: arrays must be of dtype byte, short, float32 or float64
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;Figure size 1200x900 with 2 Axes&gt;
-</pre></div></div>
+<img alt="../_images/notebooks_SDC_-_Theory_and_physics_16_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_16_0.png" />
+</div>
 </div>
 <p>Then, we can measure (in reality, approximate or estimate) how much off each voxel of our grid deviates from the nominal field strength.</p>
 <div class="nbinput nblast docutils container">
@@ -805,279 +559,27 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">z_slice</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">voxel_centers_c</span><span class="o">=</span><span class="n">sampled_field</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">);</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">im</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">axis_cbar</span><span class="p">(</span><span class="n">axins</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span>
+    <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$\Delta B_0 &lt; 0$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Delta B_0 = 0$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Delta B_0 &gt; 0$&#39;</span><span class="p">],</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-Error in callback &lt;function _draw_all_if_interactive at 0x7f59bcb14e00&gt; (for post_execute), with arguments args (),kwargs {}:
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/pyplot.py:265</span>, in <span class="ansi-cyan-fg">_draw_all_if_interactive</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">    263</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">_draw_all_if_interactive</span>() <span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">&gt;</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    264</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> matplotlib<span style="color: rgb(98,98,98)">.</span>is_interactive():
-<span class="ansi-green-fg">--&gt; 265</span>         <span class="ansi-yellow-bg">draw_all</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/_pylab_helpers.py:131</span>, in <span class="ansi-cyan-fg">Gcf.draw_all</span><span class="ansi-blue-fg">(cls, force)</span>
-<span class="ansi-green-intense-fg ansi-bold">    129</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> manager <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">cls</span><span style="color: rgb(98,98,98)">.</span>get_all_fig_managers():
-<span class="ansi-green-intense-fg ansi-bold">    130</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> force <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> manager<span style="color: rgb(98,98,98)">.</span>canvas<span style="color: rgb(98,98,98)">.</span>figure<span style="color: rgb(98,98,98)">.</span>stale:
-<span class="ansi-green-fg">--&gt; 131</span>         <span class="ansi-yellow-bg">manager</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">canvas</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw_idle</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/backend_bases.py:1919</span>, in <span class="ansi-cyan-fg">FigureCanvasBase.draw_idle</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1917</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_is_idle_drawing:
-<span class="ansi-green-intense-fg ansi-bold">   1918</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_idle_draw_cntx():
-<span class="ansi-green-fg">-&gt; 1919</span>         <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/backends/backend_agg.py:387</span>, in <span class="ansi-cyan-fg">FigureCanvasAgg.draw</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    384</span> <span style="color: rgb(95,135,135)"># Acquire a lock on the shared font cache.</span>
-<span class="ansi-green-intense-fg ansi-bold">    385</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> (<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>toolbar<span style="color: rgb(98,98,98)">.</span>_wait_cursor_for_draw_cm() <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>toolbar
-<span class="ansi-green-intense-fg ansi-bold">    386</span>       <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> nullcontext()):
-<span class="ansi-green-fg">--&gt; 387</span>     <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    388</span>     <span style="color: rgb(95,135,135)"># A GUI class may be need to update a window using this draw, so</span>
-<span class="ansi-green-intense-fg ansi-bold">    389</span>     <span style="color: rgb(95,135,135)"># don&#39;t forget to call the superclass.</span>
-<span class="ansi-green-intense-fg ansi-bold">    390</span>     <span style="color: rgb(0,135,0)">super</span>()<span style="color: rgb(98,98,98)">.</span>draw()
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:95</span>, in <span class="ansi-cyan-fg">_finalize_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     93</span> <span style="color: rgb(175,0,255)">@wraps</span>(draw)
-<span class="ansi-green-intense-fg ansi-bold">     94</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">draw_wrapper</span>(artist, renderer, <span style="color: rgb(98,98,98)">*</span>args, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
-<span class="ansi-green-fg">---&gt; 95</span>     result <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     96</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> renderer<span style="color: rgb(98,98,98)">.</span>_rasterizing:
-<span class="ansi-green-intense-fg ansi-bold">     97</span>         renderer<span style="color: rgb(98,98,98)">.</span>stop_rasterizing()
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/figure.py:3155</span>, in <span class="ansi-cyan-fg">Figure.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3152</span>             <span style="color: rgb(95,135,135)"># ValueError can occur when resizing a window.</span>
-<span class="ansi-green-intense-fg ansi-bold">   3154</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>patch<span style="color: rgb(98,98,98)">.</span>draw(renderer)
-<span class="ansi-green-fg">-&gt; 3155</span>     <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3156</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3158</span>     renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">figure</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3159</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/axes/_base.py:3109</span>, in <span class="ansi-cyan-fg">_AxesBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3106</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artists_rasterized:
-<span class="ansi-green-intense-fg ansi-bold">   3107</span>     _draw_rasterized(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure, artists_rasterized, renderer)
-<span class="ansi-green-fg">-&gt; 3109</span> <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3110</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3112</span> renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">axes</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3113</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stale <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:653</span>, in <span class="ansi-cyan-fg">_ImageBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">    651</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im, trans)
-<span class="ansi-green-intense-fg ansi-bold">    652</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">--&gt; 653</span>     im, l, b, trans <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">make_image</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_image_magnification</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    655</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> im <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    656</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:952</span>, in <span class="ansi-cyan-fg">AxesImage.make_image</span><span class="ansi-blue-fg">(self, renderer, magnification, unsampled)</span>
-<span class="ansi-green-intense-fg ansi-bold">    949</span> transformed_bbox <span style="color: rgb(98,98,98)">=</span> TransformedBbox(bbox, trans)
-<span class="ansi-green-intense-fg ansi-bold">    950</span> clip <span style="color: rgb(98,98,98)">=</span> ((<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_box() <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>axes<span style="color: rgb(98,98,98)">.</span>bbox) <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_on()
-<span class="ansi-green-intense-fg ansi-bold">    951</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure<span style="color: rgb(98,98,98)">.</span>bbox)
-<span class="ansi-green-fg">--&gt; 952</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_make_image</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_A</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transformed_bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">clip</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    953</span> <span class="ansi-yellow-bg">                        </span><span class="ansi-yellow-bg">magnification</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:539</span>, in <span class="ansi-cyan-fg">_ImageBase._make_image</span><span class="ansi-blue-fg">(self, A, in_bbox, out_bbox, clip_bbox, magnification, unsampled, round_to_pixel_border)</span>
-<span class="ansi-green-intense-fg ansi-bold">    537</span> alpha <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_alpha()
-<span class="ansi-green-intense-fg ansi-bold">    538</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> alpha <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> np<span style="color: rgb(98,98,98)">.</span>ndim(alpha) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">0</span>:
-<span class="ansi-green-fg">--&gt; 539</span>     out_alpha <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out_shape</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    540</span> <span class="ansi-yellow-bg">                           </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    541</span> <span style="color: rgb(95,135,135)"># mask and run through the norm</span>
-<span class="ansi-green-intense-fg ansi-bold">    542</span> resampled_masked <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>ma<span style="color: rgb(98,98,98)">.</span>masked_array(A_resampled, out_mask)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:208</span>, in <span class="ansi-cyan-fg">_resample</span><span class="ansi-blue-fg">(image_obj, data, out_shape, transform, resample, alpha)</span>
-<span class="ansi-green-intense-fg ansi-bold">    206</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> resample <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    207</span>     resample <span style="color: rgb(98,98,98)">=</span> image_obj<span style="color: rgb(98,98,98)">.</span>get_resample()
-<span class="ansi-green-fg">--&gt; 208</span> <span class="ansi-yellow-bg">_image</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transform</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    209</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">_interpd_</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">interpolation</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    210</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    211</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    212</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filternorm</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    213</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filterrad</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> out
-
-<span class="ansi-red-fg">ValueError</span>: arrays must be of dtype byte, short, float32 or float64
-</pre></div></div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/IPython/core/formatters.py:343</span>, in <span class="ansi-cyan-fg">BaseFormatter.__call__</span><span class="ansi-blue-fg">(self, obj)</span>
-<span class="ansi-green-intense-fg ansi-bold">    341</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">pass</span>
-<span class="ansi-green-intense-fg ansi-bold">    342</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">--&gt; 343</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">printer</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">obj</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    344</span> <span style="color: rgb(95,135,135)"># Finally look for special method names</span>
-<span class="ansi-green-intense-fg ansi-bold">    345</span> method <span style="color: rgb(98,98,98)">=</span> get_real_method(obj, <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>print_method)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/IPython/core/pylabtools.py:170</span>, in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-fg">(fig, fmt, bbox_inches, base64, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    167</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">from</span> <span class="ansi-bold" style="color: rgb(0,0,255)">matplotlib</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">backend_bases</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> FigureCanvasBase
-<span class="ansi-green-intense-fg ansi-bold">    168</span>     FigureCanvasBase(fig)
-<span class="ansi-green-fg">--&gt; 170</span> <span class="ansi-yellow-bg">fig</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">canvas</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">print_figure</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">bytes_io</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kw</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    171</span> data <span style="color: rgb(98,98,98)">=</span> bytes_io<span style="color: rgb(98,98,98)">.</span>getvalue()
-<span class="ansi-green-intense-fg ansi-bold">    172</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> fmt <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">svg</span><span style="color: rgb(175,0,0)">&#39;</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/backend_bases.py:2189</span>, in <span class="ansi-cyan-fg">FigureCanvasBase.print_figure</span><span class="ansi-blue-fg">(self, filename, dpi, facecolor, edgecolor, orientation, format, bbox_inches, pad_inches, bbox_extra_artists, backend, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2186</span>     <span style="color: rgb(95,135,135)"># we do this instead of `self.figure.draw_without_rendering`</span>
-<span class="ansi-green-intense-fg ansi-bold">   2187</span>     <span style="color: rgb(95,135,135)"># so that we can inject the orientation</span>
-<span class="ansi-green-intense-fg ansi-bold">   2188</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span style="color: rgb(0,135,0)">getattr</span>(renderer, <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">_draw_disabled</span><span style="color: rgb(175,0,0)">&#34;</span>, nullcontext)():
-<span class="ansi-green-fg">-&gt; 2189</span>         <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   2190</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> bbox_inches:
-<span class="ansi-green-intense-fg ansi-bold">   2191</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> bbox_inches <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">tight</span><span style="color: rgb(175,0,0)">&#34;</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:95</span>, in <span class="ansi-cyan-fg">_finalize_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     93</span> <span style="color: rgb(175,0,255)">@wraps</span>(draw)
-<span class="ansi-green-intense-fg ansi-bold">     94</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span> <span style="color: rgb(0,0,255)">draw_wrapper</span>(artist, renderer, <span style="color: rgb(98,98,98)">*</span>args, <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">*</span>kwargs):
-<span class="ansi-green-fg">---&gt; 95</span>     result <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     96</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> renderer<span style="color: rgb(98,98,98)">.</span>_rasterizing:
-<span class="ansi-green-intense-fg ansi-bold">     97</span>         renderer<span style="color: rgb(98,98,98)">.</span>stop_rasterizing()
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/figure.py:3155</span>, in <span class="ansi-cyan-fg">Figure.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3152</span>             <span style="color: rgb(95,135,135)"># ValueError can occur when resizing a window.</span>
-<span class="ansi-green-intense-fg ansi-bold">   3154</span>     <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>patch<span style="color: rgb(98,98,98)">.</span>draw(renderer)
-<span class="ansi-green-fg">-&gt; 3155</span>     <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3156</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3158</span>     renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">figure</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3159</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/axes/_base.py:3109</span>, in <span class="ansi-cyan-fg">_AxesBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3106</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artists_rasterized:
-<span class="ansi-green-intense-fg ansi-bold">   3107</span>     _draw_rasterized(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure, artists_rasterized, renderer)
-<span class="ansi-green-fg">-&gt; 3109</span> <span class="ansi-yellow-bg">mimage</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_draw_list_compositing_images</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">   3110</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">artists</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">figure</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">suppressComposite</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   3112</span> renderer<span style="color: rgb(98,98,98)">.</span>close_group(<span style="color: rgb(175,0,0)">&#39;</span><span style="color: rgb(175,0,0)">axes</span><span style="color: rgb(175,0,0)">&#39;</span>)
-<span class="ansi-green-intense-fg ansi-bold">   3113</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>stale <span style="color: rgb(98,98,98)">=</span> <span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:132</span>, in <span class="ansi-cyan-fg">_draw_list_compositing_images</span><span class="ansi-blue-fg">(renderer, parent, artists, suppress_composite)</span>
-<span class="ansi-green-intense-fg ansi-bold">    130</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> not_composite <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> has_images:
-<span class="ansi-green-intense-fg ansi-bold">    131</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> a <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> artists:
-<span class="ansi-green-fg">--&gt; 132</span>         <span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-intense-fg ansi-bold">    134</span>     <span style="color: rgb(95,135,135)"># Composite any adjacent images together</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>     image_group <span style="color: rgb(98,98,98)">=</span> []
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/artist.py:72</span>, in <span class="ansi-cyan-fg">allow_rasterization.&lt;locals&gt;.draw_wrapper</span><span class="ansi-blue-fg">(artist, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">     69</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">     70</span>         renderer<span style="color: rgb(98,98,98)">.</span>start_filter()
-<span class="ansi-green-fg">---&gt; 72</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">draw</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">artist</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     73</span> <span class="ansi-bold" style="color: rgb(0,135,0)">finally</span>:
-<span class="ansi-green-intense-fg ansi-bold">     74</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> artist<span style="color: rgb(98,98,98)">.</span>get_agg_filter() <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:653</span>, in <span class="ansi-cyan-fg">_ImageBase.draw</span><span class="ansi-blue-fg">(self, renderer)</span>
-<span class="ansi-green-intense-fg ansi-bold">    651</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im, trans)
-<span class="ansi-green-intense-fg ansi-bold">    652</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">--&gt; 653</span>     im, l, b, trans <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">make_image</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-intense-fg ansi-bold">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">renderer</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_image_magnification</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    655</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> im <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    656</span>         renderer<span style="color: rgb(98,98,98)">.</span>draw_image(gc, l, b, im)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:952</span>, in <span class="ansi-cyan-fg">AxesImage.make_image</span><span class="ansi-blue-fg">(self, renderer, magnification, unsampled)</span>
-<span class="ansi-green-intense-fg ansi-bold">    949</span> transformed_bbox <span style="color: rgb(98,98,98)">=</span> TransformedBbox(bbox, trans)
-<span class="ansi-green-intense-fg ansi-bold">    950</span> clip <span style="color: rgb(98,98,98)">=</span> ((<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_box() <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>axes<span style="color: rgb(98,98,98)">.</span>bbox) <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_clip_on()
-<span class="ansi-green-intense-fg ansi-bold">    951</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>figure<span style="color: rgb(98,98,98)">.</span>bbox)
-<span class="ansi-green-fg">--&gt; 952</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_make_image</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">_A</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transformed_bbox</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">clip</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    953</span> <span class="ansi-yellow-bg">                        </span><span class="ansi-yellow-bg">magnification</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">unsampled</span><span class="ansi-yellow-bg">)</span>
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:539</span>, in <span class="ansi-cyan-fg">_ImageBase._make_image</span><span class="ansi-blue-fg">(self, A, in_bbox, out_bbox, clip_bbox, magnification, unsampled, round_to_pixel_border)</span>
-<span class="ansi-green-intense-fg ansi-bold">    537</span> alpha <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>get_alpha()
-<span class="ansi-green-intense-fg ansi-bold">    538</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> alpha <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span> <span class="ansi-bold" style="color: rgb(175,0,255)">and</span> np<span style="color: rgb(98,98,98)">.</span>ndim(alpha) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">0</span>:
-<span class="ansi-green-fg">--&gt; 539</span>     out_alpha <span style="color: rgb(98,98,98)">*</span><span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">self</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out_shape</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    540</span> <span class="ansi-yellow-bg">                           </span><span class="ansi-yellow-bg">t</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg ansi-bold" style="color: rgb(0,135,0)">True</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    541</span> <span style="color: rgb(95,135,135)"># mask and run through the norm</span>
-<span class="ansi-green-intense-fg ansi-bold">    542</span> resampled_masked <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>ma<span style="color: rgb(98,98,98)">.</span>masked_array(A_resampled, out_mask)
-
-File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/python3.12/site-packages/matplotlib/image.py:208</span>, in <span class="ansi-cyan-fg">_resample</span><span class="ansi-blue-fg">(image_obj, data, out_shape, transform, resample, alpha)</span>
-<span class="ansi-green-intense-fg ansi-bold">    206</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> resample <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
-<span class="ansi-green-intense-fg ansi-bold">    207</span>     resample <span style="color: rgb(98,98,98)">=</span> image_obj<span style="color: rgb(98,98,98)">.</span>get_resample()
-<span class="ansi-green-fg">--&gt; 208</span> <span class="ansi-yellow-bg">_image</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">out</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">transform</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    209</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">_interpd_</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">interpolation</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    210</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">resample</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    211</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">alpha</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    212</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filternorm</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    213</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">image_obj</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">get_filterrad</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> out
-
-<span class="ansi-red-fg">ValueError</span>: arrays must be of dtype byte, short, float32 or float64
-</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<div class="highlight"><pre>
-&lt;Figure size 1200x900 with 2 Axes&gt;
-</pre></div></div>
+<img alt="../_images/notebooks_SDC_-_Theory_and_physics_19_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_19_0.png" />
+</div>
 </div>
 <p>Those sampled deviations from the nominal field (<span class="math notranslate nohighlight">\(\Delta B_\text{0}\)</span>) can be plotted on top of our brain slice, to see where voxels are fairly close to their nominal value (e.g., those two white dots in the ventricles at the middle) and those furtherr from it (e.g., two voxels towards the anterior commissure which are very reddish).</p>
 <div class="nbinput docutils container">
@@ -1085,6 +587,18 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">voxel_centers_c</span><span class="o">=</span><span class="n">sampled_field</span><span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">im</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">axis_cbar</span><span class="p">(</span><span class="n">axins</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">(</span>
+    <span class="p">[</span><span class="sa">r</span><span class="s1">&#39;$\Delta B_0 &lt; 0$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Delta B_0 = 0$&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\Delta B_0 &gt; 0$&#39;</span><span class="p">],</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1114,28 +628,58 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">voxel_centers_c</span><span class="o">=</span><span class="n">sampled_field</span><span class="p">)</span>
 
 <span class="c1"># Voxel edges</span>
 <span class="n">e_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">e_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
+<span class="c1"># Actual sampling locations</span>
 <span class="n">y_coord_moved</span> <span class="o">=</span> <span class="n">y_coord</span> <span class="o">+</span> <span class="n">trt</span> <span class="o">*</span> <span class="n">sampled_field</span>
+
+<span class="c1"># Whether actual sample locations fall within the image extents</span>
 <span class="n">is_in_fov</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_coord_moved</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y_coord_moved</span> <span class="o">&lt;</span> <span class="n">field</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">sampled_field</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">e_j</span><span class="p">),</span> <span class="n">e_j</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
 
-<span class="n">axins</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">sampled_field</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">)</span>
-<span class="n">axins</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">e_j</span><span class="p">),</span> <span class="n">e_j</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+<span class="c1"># Calculate quivers (vectors)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">]))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">v</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
-<span class="n">j_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1"># Main view&#39;s plotting</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span>
+    <span class="n">u</span><span class="p">,</span>
+    <span class="n">v</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+    <span class="c1"># cmap=&#39;seismic&#39;,</span>
+    <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+    <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">e_j</span><span class="p">:</span>
-    <span class="n">warped_edges</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">trt</span> <span class="o">*</span> <span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
-    <span class="n">warped_edges</span><span class="p">[</span><span class="n">warped_edges</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="n">warped_edges</span><span class="p">[</span><span class="n">warped_edges</span> <span class="o">&gt;=</span> <span class="n">field</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">j_axis</span><span class="p">,</span> <span class="n">warped_edges</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
-    <span class="n">axins</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">j_axis</span><span class="p">,</span> <span class="n">warped_edges</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="c1"># Inset plotting</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">axins</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span>
+    <span class="n">u</span><span class="p">,</span>
+    <span class="n">v</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span>
+    <span class="c1"># cmap=&#39;seismic&#39;,</span>
+    <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+    <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">0.008</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">im</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">axis_cbar</span><span class="p">(</span><span class="n">axins</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="sa">r</span><span class="s1">&#39;$s_</span><span class="si">{min}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0&#39;</span> <span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$s_</span><span class="si">{max}</span><span class="s1">$&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1146,13 +690,72 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 <img alt="../_images/notebooks_SDC_-_Theory_and_physics_24_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_24_0.png" />
 </div>
 </div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Calculate quivers (vectors)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">]))</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="n">v</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="c1"># Plot main view</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">e_j</span><span class="p">),</span> <span class="n">e_j</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+
+<span class="c1"># Plot inset</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;seismic&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_coord</span><span class="p">)[</span><span class="n">is_in_fov</span><span class="p">],</span>
+    <span class="n">y_coord_moved</span><span class="p">[</span><span class="n">is_in_fov</span><span class="p">],</span>
+    <span class="n">u</span><span class="p">,</span>
+    <span class="o">-</span><span class="n">v</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+    <span class="n">angles</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+    <span class="n">scale_units</span><span class="o">=</span><span class="s1">&#39;xy&#39;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">0.008</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">e_i</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">e_j</span><span class="p">),</span> <span class="n">e_j</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;seismic&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">CenteredNorm</span><span class="p">(),</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">);</span>
+
+<span class="c1"># Calculate warping</span>
+<span class="n">j_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">e_j</span><span class="p">:</span>
+    <span class="n">warped_edges</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">trt</span> <span class="o">*</span> <span class="n">field</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">warped_edges</span><span class="p">[</span><span class="n">warped_edges</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">warped_edges</span><span class="p">[</span><span class="n">warped_edges</span> <span class="o">&gt;=</span> <span class="n">field</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">j_axis</span><span class="p">,</span> <span class="n">warped_edges</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">axins</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">j_axis</span><span class="p">,</span> <span class="n">warped_edges</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span>
+    <span class="n">im</span><span class="p">,</span>
+    <span class="n">cax</span><span class="o">=</span><span class="n">axis_cbar</span><span class="p">(</span><span class="n">axins</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span>
+    <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="sa">r</span><span class="s1">&#39;$s_</span><span class="si">{min}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;0.0&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$s_</span><span class="si">{max}</span><span class="s1">$&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_SDC_-_Theory_and_physics_25_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_25_0.png" />
+</div>
+</div>
 </section>
 </section>
 <section id="The-effects-of-this-physical-phenomenon">
 <h2>The effects of this physical phenomenon<a class="headerlink" href="#The-effects-of-this-physical-phenomenon" title="Link to this heading">¶</a></h2>
 <p>Then the MRI device will execute the EPI scanning scheme, and sample at the locations given above. The result can be seen in the image below:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_indexes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
@@ -1161,7 +764,7 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_ndindex_warped</span> <span class="o">=</span> <span class="n">all_ndindex</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
@@ -1170,14 +773,13 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warped_brain</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span>
     <span class="n">z_s</span><span class="p">,</span>
     <span class="n">all_ndindex_warped</span><span class="p">,</span>
 <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1185,16 +787,14 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_SDC_-_Theory_and_physics_28_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_28_0.png" />
+<img alt="../_images/notebooks_SDC_-_Theory_and_physics_29_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_29_0.png" />
 </div>
 </div>
-<p>For reference, we can plot our MRI (grayscale colormap) fused with the original (ground-truth) anatomy.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdPu_r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">);</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_brain</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">brain_cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1205,21 +805,14 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 <img alt="../_images/notebooks_SDC_-_Theory_and_physics_30_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_30_0.png" />
 </div>
 </div>
-<section id="The-effect-if-the-PE-direction-is-reversed-(%22negative-blips%22)">
-<h3>The effect if the PE direction is reversed (“negative blips”)<a class="headerlink" href="#The-effect-if-the-PE-direction-is-reversed-(%22negative-blips%22)" title="Link to this heading">¶</a></h3>
-<p>Then, the distortion happens exactly on the opposed direction:</p>
+<p>For reference, we can plot our MRI (grayscale colormap) fused with the original (ground-truth) anatomy.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_ndindex_warped</span> <span class="o">=</span> <span class="n">all_ndindex</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="n">all_ndindex_warped</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-=</span> <span class="n">trt</span> <span class="o">*</span> <span class="n">field</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">warped_brain</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span>
-    <span class="n">z_s</span><span class="p">,</span>
-    <span class="n">all_ndindex_warped</span><span class="p">,</span>
-<span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">);</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">brain_cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">);</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdPu_r&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdPu_r&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1230,12 +823,24 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 <img alt="../_images/notebooks_SDC_-_Theory_and_physics_32_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_32_0.png" />
 </div>
 </div>
+<section id="The-effect-if-the-PE-direction-is-reversed-(%22negative-blips%22)">
+<h3>The effect if the PE direction is reversed (“negative blips”)<a class="headerlink" href="#The-effect-if-the-PE-direction-is-reversed-(%22negative-blips%22)" title="Link to this heading">¶</a></h3>
+<p>Then, the distortion happens exactly on the opposed direction:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdPu_r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">);</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_ndindex_warped</span> <span class="o">=</span> <span class="n">all_ndindex</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">all_ndindex_warped</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">-=</span> <span class="n">trt</span> <span class="o">*</span> <span class="n">field</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">warped_brain</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span>
+    <span class="n">z_s</span><span class="p">,</span>
+    <span class="n">all_ndindex_warped</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">z_slice</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">axins</span> <span class="o">=</span> <span class="n">plot_brain</span><span class="p">(</span><span class="n">warped_brain</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">brain_cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">);</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdPu_r&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+<span class="n">axins</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">z_slice</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;RdPu_r&quot;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1243,23 +848,7 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_SDC_-_Theory_and_physics_33_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_33_0.png" />
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
+<img alt="../_images/notebooks_SDC_-_Theory_and_physics_34_0.png" src="../_images/notebooks_SDC_-_Theory_and_physics_34_0.png" />
 </div>
 </div>
 </section>
@@ -1321,7 +910,7 @@ File <span class="ansi-green-fg">/opt/hostedtoolcache/Python/3.12.3/x64/lib/pyth
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Susceptibility Distortions (and Correction) in a nutshell</a><ul>
+<li><a class="reference internal" href="#">Susceptibility Distortions in a nutshell</a><ul>
 <li><a class="reference internal" href="#Data:-a-brain">Data: a brain</a><ul>
 <li><a class="reference internal" href="#Sampling-that-brain-and-MRI">Sampling that brain and MRI</a></li>
 <li><a class="reference internal" href="#The-B_\text{0}-field-is-not-absolutely-uniform">The <span class="math notranslate nohighlight">\(B_\text{0}\)</span> field is not absolutely uniform</a></li>
