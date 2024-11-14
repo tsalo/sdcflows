@@ -4,11 +4,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>sdcflows.transform - sdcflows 0+unknown documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/version-switch.css?v=3fffbac3" />
     
     
@@ -88,19 +88,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -141,7 +128,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -393,6 +380,7 @@
     <span class="n">coordinates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">pe_info</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">hmc_xfm</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">jacobian</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">fmap_hz</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">output_dtype</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
@@ -415,13 +403,6 @@
     <span class="n">vsm</span> <span class="o">=</span> <span class="n">fmap_hz</span> <span class="o">*</span> <span class="n">pe_info</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">coordinates</span><span class="p">[</span><span class="n">pe_info</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">+=</span> <span class="n">vsm</span>
 
-    <span class="c1"># The Jacobian determinant image is the amount of stretching in the PE direction.</span>
-    <span class="c1"># Using central differences accounts for the shift in neighboring voxels.</span>
-    <span class="c1"># The full Jacobian at each voxel would be a 3x3 matrix, but because there is</span>
-    <span class="c1"># only warping in one direction, we end up with a diagonal matrix with two 1s.</span>
-    <span class="c1"># The following is the other entry at each voxel, and hence the determinant.</span>
-    <span class="n">jacobian</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">vsm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">pe_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
     <span class="n">resampled</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span>
         <span class="n">data</span><span class="p">,</span>
         <span class="n">coordinates</span><span class="p">,</span>
@@ -430,7 +411,15 @@
         <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
         <span class="n">cval</span><span class="o">=</span><span class="n">cval</span><span class="p">,</span>
         <span class="n">prefilter</span><span class="o">=</span><span class="n">prefilter</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">*</span> <span class="n">jacobian</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The Jacobian determinant image is the amount of stretching in the PE direction.</span>
+    <span class="c1"># Using central differences accounts for the shift in neighboring voxels.</span>
+    <span class="c1"># The full Jacobian at each voxel would be a 3x3 matrix, but because there is</span>
+    <span class="c1"># only warping in one direction, we end up with a diagonal matrix with two 1s.</span>
+    <span class="c1"># The following is the other entry at each voxel, and hence the determinant.</span>
+    <span class="k">if</span> <span class="n">jacobian</span><span class="p">:</span>
+        <span class="n">resampled</span> <span class="o">*=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">vsm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">pe_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
     <span class="k">return</span> <span class="n">resampled</span>
 
@@ -463,6 +452,7 @@
     <span class="n">fmap_hz</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">pe_info</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
     <span class="n">xfms</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">jacobian</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span>
     <span class="n">cval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
@@ -487,6 +477,8 @@
 <span class="sd">    pe_info : :obj:`tuple` of (:obj:`int`, :obj:`float`)</span>
 <span class="sd">        A tuple containing the index of the phase-encoding axis in the data array and</span>
 <span class="sd">        the readout time (including sign, if displacements must be reversed)</span>
+<span class="sd">    jacobian : :class:`bool`</span>
+<span class="sd">        If :obj:`True`, apply Jacobian determinant correction after unwarping.</span>
 <span class="sd">    xfms : :obj:`list` of obj:`~numpy.ndarray`</span>
 <span class="sd">        A list of 4×4 matrices, each one formalizing</span>
 <span class="sd">        the estimated head motion alignment to the scan&#39;s reference.</span>
@@ -525,6 +517,7 @@
 
     <span class="n">func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
         <span class="n">_sdc_unwarp</span><span class="p">,</span>
+        <span class="n">jacobian</span><span class="o">=</span><span class="n">jacobian</span><span class="p">,</span>
         <span class="n">fmap_hz</span><span class="o">=</span><span class="n">fmap_hz</span><span class="p">,</span>
         <span class="n">output_dtype</span><span class="o">=</span><span class="n">output_dtype</span><span class="p">,</span>
         <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
@@ -703,6 +696,7 @@
         <span class="n">pe_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">ro_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
         <span class="n">xfms</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">jacobian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">xfm_data2fmap</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">approx</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
@@ -727,6 +721,8 @@
 <span class="sd">            A valid ``PhaseEncodingDirection`` metadata value.</span>
 <span class="sd">        ro_time : :obj:`float` or :obj:`list` of :obj:`float`</span>
 <span class="sd">            The total readout time in seconds.</span>
+<span class="sd">        jacobian : :class:`bool`</span>
+<span class="sd">            If :obj:`True`, apply Jacobian determinant correction after unwarping.</span>
 <span class="sd">        xfms : :obj:`None` or :obj:`list`</span>
 <span class="sd">            A list of 4×4 matrices, each one formalizing</span>
 <span class="sd">            the estimated head motion alignment to the scan&#39;s reference.</span>
@@ -861,6 +857,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">mapped</span><span class="o">.</span><span class="n">get_fdata</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span>  <span class="c1"># fieldmap in Hz</span>
                 <span class="n">pe_info</span><span class="p">,</span>
                 <span class="n">xfms</span><span class="p">,</span>
+                <span class="n">jacobian</span><span class="p">,</span>
                 <span class="n">output_dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">,</span>
                 <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                 <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
@@ -1174,9 +1171,9 @@
     </aside>
   </div>
 </div><script src="../../_static/documentation_options.js?v=27db1736"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../../_static/js/version-switch.js?v=d8b55535"></script>
     </body>

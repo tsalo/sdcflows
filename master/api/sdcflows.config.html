@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="sdcflows.data package" href="sdcflows.data.html" /><link rel="prev" title="sdcflows.cli.workflow module" href="sdcflows.cli.workflow.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>sdcflows.config module - sdcflows 0+unknown documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="../_static/css/version-switch.css?v=3fffbac3" />
     
     
@@ -89,19 +89,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -142,7 +129,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -462,10 +449,10 @@ graph is built across processes.</p>
 <p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">config</span></code> is responsible for other conveniency actions.</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Switching Python’s <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> to <em>forkserver</em> mode.</p></li>
+<li><p>Switching Python’s <a class="reference external" href="https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiprocessing</span></code></a> to <em>forkserver</em> mode.</p></li>
 <li><p>Set up a filter for warnings as early as possible.</p></li>
 <li><p>Automated I/O magic operations. Some conversions need to happen in the
-store/load processes (e.g., from/to <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Path</span></code></a> &lt;-&gt; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>,
+store/load processes (e.g., from/to <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Path</span></code></a> &lt;-&gt; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>,
 <a class="reference external" href="https://bids-standard.github.io/pybids/generated/bids.layout.BIDSLayout.html#bids.layout.BIDSLayout" title="(in PyBIDS v0.16.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BIDSLayout</span></code></a>, etc.)</p></li>
 </ul>
 </div></blockquote>
@@ -508,13 +495,13 @@ opt-out using the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sdcflows.config.environment.free_mem">
-<span class="sig-name descname"><span class="pre">free_mem</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11.3</span></em><a class="headerlink" href="#sdcflows.config.environment.free_mem" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">free_mem</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11.1</span></em><a class="headerlink" href="#sdcflows.config.environment.free_mem" title="Link to this definition">¶</a></dt>
 <dd><p>Free memory at start.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sdcflows.config.environment.nipype_version">
-<span class="sig-name descname"><span class="pre">nipype_version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1.8.6'</span></em><a class="headerlink" href="#sdcflows.config.environment.nipype_version" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">nipype_version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1.9.0'</span></em><a class="headerlink" href="#sdcflows.config.environment.nipype_version" title="Link to this definition">¶</a></dt>
 <dd><p>Nipype’s current version.</p>
 </dd></dl>
 
@@ -532,13 +519,13 @@ opt-out using the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sdcflows.config.environment.templateflow_version">
-<span class="sig-name descname"><span class="pre">templateflow_version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'24.2.0'</span></em><a class="headerlink" href="#sdcflows.config.environment.templateflow_version" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">templateflow_version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'24.2.2'</span></em><a class="headerlink" href="#sdcflows.config.environment.templateflow_version" title="Link to this definition">¶</a></dt>
 <dd><p>The TemplateFlow client version installed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sdcflows.config.environment.total_memory">
-<span class="sig-name descname"><span class="pre">total_memory</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15.606491088867188</span></em><a class="headerlink" href="#sdcflows.config.environment.total_memory" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">total_memory</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15.606487274169922</span></em><a class="headerlink" href="#sdcflows.config.environment.total_memory" title="Link to this definition">¶</a></dt>
 <dd><p>Total memory available, in GB.</p>
 </dd></dl>
 
@@ -659,7 +646,7 @@ opt-out using the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sdcflows.config.execution.run_uuid">
-<span class="sig-name descname"><span class="pre">run_uuid</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'20240708-131904_a7243eac-9daa-4474-acbd-cf55d2549283'</span></em><a class="headerlink" href="#sdcflows.config.execution.run_uuid" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">run_uuid</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'20241114-141247_0a711e90-3ff3-4ca5-89ed-480bae5face9'</span></em><a class="headerlink" href="#sdcflows.config.execution.run_uuid" title="Link to this definition">¶</a></dt>
 <dd><p>Unique identifier of this particular run.</p>
 </dd></dl>
 
@@ -697,7 +684,7 @@ opt-out using the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py data">
 <dt class="sig sig-object py" id="sdcflows.config.file_path">
-<span class="sig-prename descclassname"><span class="pre">sdcflows.config.</span></span><span class="sig-name descname"><span class="pre">file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.12)"><span class="pre">Path</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sdcflows.config.file_path" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">sdcflows.config.</span></span><span class="sig-name descname"><span class="pre">file_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#sdcflows.config.file_path" title="Link to this definition">¶</a></dt>
 <dd><p>Path to configuration file.</p>
 </dd></dl>
 
@@ -722,7 +709,7 @@ opt-out using the <code class="docutils literal notranslate"><span class="pre">-
 <dl class="py class">
 <dt class="sig sig-object py" id="sdcflows.config.loggers">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sdcflows.config.</span></span><span class="sig-name descname"><span class="pre">loggers</span></span><a class="reference internal" href="../_modules/sdcflows/config.html#loggers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sdcflows.config.loggers" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Keep loggers easily accessible (see <a class="reference internal" href="#sdcflows.config.loggers.init" title="sdcflows.config.loggers.init"><code class="xref py py-func docutils literal notranslate"><span class="pre">init()</span></code></a>).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="sdcflows.config.loggers.cli">
@@ -1056,9 +1043,9 @@ opt-out using the <code class="docutils literal notranslate"><span class="pre">-
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=27db1736"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="../_static/js/version-switch.js?v=d8b55535"></script>
     </body>
