@@ -50,15 +50,13 @@ def test_au2rads2(tmp_path):
     data[0, 0, 0] = 0
     data[-1, -1, -1] = 4096
 
-    nb.Nifti1Image(data.astype("int16"), np.eye(4)).to_filename(
-        tmp_path / "testdata.nii.gz"
-    )
+    nb.Nifti1Image(data.astype('int16'), np.eye(4)).to_filename(tmp_path / 'testdata.nii.gz')
 
-    out_file = au2rads2(tmp_path / "testdata.nii.gz")
+    out_file = au2rads2(tmp_path / 'testdata.nii.gz')
 
     assert np.allclose(
-        ((data / 4096).astype("float32") * 2.0 * np.pi) - np.pi,
-        nb.load(out_file).get_fdata(dtype="float32"),
+        ((data / 4096).astype('float32') * 2.0 * np.pi) - np.pi,
+        nb.load(out_file).get_fdata(dtype='float32'),
     )
 
 

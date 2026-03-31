@@ -477,7 +477,7 @@ def find_estimators(
 
         # Look for MEDIC field maps
         # These need to be complex-valued multi-echo BOLD runs with ``IntendedFor``
-        has_intended = tuple()
+        has_intended = ()
         with suppress(ValueError):
             has_intended = layout.get(
                 **{
@@ -501,11 +501,9 @@ def find_estimators(
             )
 
             current_sources = [est.sources for est in estimators]
-            current_sources = [
-                str(item.path) for sublist in current_sources for item in sublist
-            ]
+            current_sources = [str(item.path) for sublist in current_sources for item in sublist]
             if complex_imgs[0].path in current_sources:
-                logger.debug("Skipping fieldmap %s (already in use)", complex_imgs[0].relpath)
+                logger.debug('Skipping fieldmap %s (already in use)', complex_imgs[0].relpath)
                 continue
 
             try:
@@ -521,7 +519,7 @@ def find_estimators(
             except (ValueError, TypeError) as err:
                 _log_debug_estimator_fail(
                     logger,
-                    "unnamed MEDIC",
+                    'unnamed MEDIC',
                     [],
                     layout.root,
                     str(err),
@@ -538,7 +536,11 @@ def find_estimators(
             has_intended = layout.get(
                 **{
                     **base_entities,
-                    **{'suffix': ['epi', 'bold'], 'IntendedFor': Query.REQUIRED, 'session': sessions},
+                    **{
+                        'suffix': ['epi', 'bold'],
+                        'IntendedFor': Query.REQUIRED,
+                        'session': sessions,
+                    },
                 }
             )
 

@@ -22,16 +22,16 @@
 #
 """Processing of dynamic field maps from complex-valued multi-echo BOLD data."""
 
-from nipype.pipeline import engine as pe
 from nipype.interfaces import utility as niu
+from nipype.pipeline import engine as pe
 from niworkflows.engine.workflows import LiterateWorkflow as Workflow
 
 from sdcflows.interfaces.fmap import MEDIC, PhaseMap2rads2
 
-INPUT_FIELDS = ("magnitude", "phase", "metadata")
+INPUT_FIELDS = ('magnitude', 'phase', 'metadata')
 
 
-def init_medic_wf(name="medic_wf"):
+def init_medic_wf(name='medic_wf'):
     """Create the MEDIC dynamic field estimation workflow.
 
     Workflow Graph
@@ -83,36 +83,36 @@ Volume-wise *B<sub>0</sub>* nonuniformity maps (or *fieldmaps*) were estimated f
 complex-valued, multi-echo EPI data using the MEDIC algorithm (@medic).
 """
 
-    inputnode = pe.Node(niu.IdentityInterface(fields=INPUT_FIELDS), name="inputnode")
+    inputnode = pe.Node(niu.IdentityInterface(fields=INPUT_FIELDS), name='inputnode')
     outputnode = pe.Node(
-        niu.IdentityInterface(fields=["fmap", "displacement", "method"]),
-        name="outputnode",
+        niu.IdentityInterface(fields=['fmap', 'displacement', 'method']),
+        name='outputnode',
     )
-    outputnode.inputs.method = "MEDIC"
+    outputnode.inputs.method = 'MEDIC'
 
     # Write metadata dictionaries to JSON files
     write_metadata = pe.MapNode(
         niu.Function(
-            input_names=["metadata"],
-            output_names=["out_file"],
+            input_names=['metadata'],
+            output_names=['out_file'],
             function=write_json,
         ),
-        iterfield=["metadata"],
-        name="write_metadata",
+        iterfield=['metadata'],
+        name='write_metadata',
     )
-    workflow.connect([(inputnode, write_metadata, [("metadata", "metadata")])])
+    workflow.connect([(inputnode, write_metadata, [('metadata', 'metadata')])])
 
     # Convert phase to radians (-pi to pi, not 0 to 2pi)
     phase2rad = pe.MapNode(
         PhaseMap2rads2(),
-        iterfield=["in_file"],
-        name="phase2rad",
+        iterfield=['in_file'],
+        name='phase2rad',
     )
-    workflow.connect([(inputnode, phase2rad, [("phase", "in_file")])])
+    workflow.connect([(inputnode, phase2rad, [('phase', 'in_file')])])
 
     medic = pe.Node(
         MEDIC(),
-        name="medic",
+        name='medic',
     )
     workflow.connect([
         (inputnode, medic, [("magnitude", "mag_files")]),
@@ -132,8 +132,8 @@ def write_json(metadata):
     import json
     import os
 
-    out_file = os.path.abspath("metadata.json")
-    with open(out_file, "w") as fobj:
+    out_file = os.path.abspath('metadata.json')
+    with open(out_file, 'w') as fobj:
         json.dump(metadata, fobj, sort_keys=True, indent=4)
 
     return out_file

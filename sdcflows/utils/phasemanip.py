@@ -51,12 +51,12 @@ def au2rads2(in_file, newpath=None):
 
     This differs from au2rads, which scales the phase to [0, 2*pi].
     """
-    import numpy as np
     import nibabel as nb
+    import numpy as np
     from nipype.utils.filemanip import fname_presuffix
 
     im = nb.load(in_file)
-    data = im.get_fdata(caching="unchanged")  # Read as float64 for safety
+    data = im.get_fdata(caching='unchanged')  # Read as float64 for safety
     hdr = im.header.copy()
 
     # Rescale to [0, 2*pi]
@@ -68,8 +68,8 @@ def au2rads2(in_file, newpath=None):
     data = np.clip(np.float32(data), -np.pi, np.pi)
 
     hdr.set_data_dtype(np.float32)
-    hdr.set_xyzt_units("mm")
-    out_file = fname_presuffix(str(in_file), suffix="_rads", newpath=newpath)
+    hdr.set_xyzt_units('mm')
+    out_file = fname_presuffix(str(in_file), suffix='_rads', newpath=newpath)
     nb.Nifti1Image(data, None, hdr).to_filename(out_file)
     return out_file
 

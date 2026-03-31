@@ -25,8 +25,9 @@
 import shutil
 from collections import namedtuple
 
-import bids
 import pytest
+
+import bids
 
 from .. import fieldmaps as fm
 

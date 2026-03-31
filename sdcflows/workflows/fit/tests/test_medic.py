@@ -21,12 +21,13 @@
 #     https://www.nipreps.org/community/licensing/
 #
 """Test phase-difference type of fieldmaps."""
-from pathlib import Path
+
 from json import loads
+from pathlib import Path
 
 import pytest
 
-from ..medic import init_medic_wf, Workflow
+from ..medic import Workflow, init_medic_wf
 
 
 @pytest.mark.slow
@@ -36,13 +37,13 @@ def test_medic(tmpdir, datadir, workdir, outdir):
 
     pattern = 'ds005250/sub-04/ses-2/func/*_part-mag_bold.nii.gz'
     magnitude_files = sorted(datadir.glob(pattern))
-    phase_files = [f.with_name(f.name.replace("part-mag", "part-phase")) for f in magnitude_files]
+    phase_files = [f.with_name(f.name.replace('part-mag', 'part-phase')) for f in magnitude_files]
     metadata_dicts = [
         loads(Path(f.with_name(f.name.replace('.nii.gz', '.json'))).read_text())
         for f in magnitude_files
     ]
 
-    wf = Workflow(name=f"medic_{magnitude_files[0].name.replace('.nii.gz', '').replace('-', '_')}")
+    wf = Workflow(name=f'medic_{magnitude_files[0].name.replace(".nii.gz", "").replace("-", "_")}')
     medic_wf = init_medic_wf()
     medic_wf.inputs.inputnode.magnitude = magnitude_files
     medic_wf.inputs.inputnode.phase = phase_files
@@ -51,11 +52,11 @@ def test_medic(tmpdir, datadir, workdir, outdir):
     if outdir:
         from ...outputs import init_fmap_derivatives_wf, init_fmap_reports_wf
 
-        outdir = outdir / "unittests" / magnitude_files[0].split("/")[0]
+        outdir = outdir / 'unittests' / magnitude_files[0].split('/')[0]
         fmap_derivatives_wf = init_fmap_derivatives_wf(
             output_dir=str(outdir),
             write_coeff=True,
-            bids_fmap_id="phasediff_id",
+            bids_fmap_id='phasediff_id',
         )
         fmap_derivatives_wf.inputs.inputnode.source_files = [str(f) for f in magnitude_files]
         fmap_derivatives_wf.inputs.inputnode.fmap_meta = metadata_dicts
@@ -80,4 +81,4 @@ def test_medic(tmpdir, datadir, workdir, outdir):
     if workdir:
         wf.base_dir = str(workdir)
 
-    wf.run(plugin="Linear")
+    wf.run(plugin='Linear')

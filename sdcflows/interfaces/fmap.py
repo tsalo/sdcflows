@@ -31,8 +31,8 @@ from nipype import logging
 from nipype.interfaces import freesurfer as fs
 from nipype.interfaces.base import (
     BaseInterfaceInputSpec,
-    CommandLineInputSpec,
     CommandLine,
+    CommandLineInputSpec,
     File,
     InputMultiObject,
     OutputMultiObject,
@@ -67,11 +67,11 @@ class PhaseMap2rads(SimpleInterface):
 
 
 class _PhaseMap2rads2InputSpec(BaseInterfaceInputSpec):
-    in_file = File(exists=True, mandatory=True, desc="input (wrapped) phase map")
+    in_file = File(exists=True, mandatory=True, desc='input (wrapped) phase map')
 
 
 class _PhaseMap2rads2OutputSpec(TraitedSpec):
-    out_file = File(desc="the phase map in the range -3.14 - 3.14")
+    out_file = File(desc='the phase map in the range -3.14 - 3.14')
 
 
 class PhaseMap2rads2(SimpleInterface):
@@ -86,7 +86,7 @@ class PhaseMap2rads2(SimpleInterface):
     def _run_interface(self, runtime):
         from ..utils.phasemanip import au2rads2
 
-        self._results["out_file"] = au2rads2(self.inputs.in_file, newpath=runtime.cwd)
+        self._results['out_file'] = au2rads2(self.inputs.in_file, newpath=runtime.cwd)
         return runtime
 
 
@@ -417,76 +417,76 @@ def _check_gross_geometry(
 class _MEDICInputSpec(CommandLineInputSpec):
     mag_files = traits.List(
         File(exists=True),
-        argstr="--magnitude %s",
+        argstr='--magnitude %s',
         mandatory=True,
         minlen=2,
-        desc="Magnitude image(s) to verify registration",
+        desc='Magnitude image(s) to verify registration',
     )
     phase_files = traits.List(
         File(exists=True),
-        argstr="--phase %s",
+        argstr='--phase %s',
         mandatory=True,
         minlen=2,
-        desc="Phase image(s) to verify registration",
+        desc='Phase image(s) to verify registration',
     )
     metadata = traits.List(
         File(exists=True),
-        argstr="--metadata %s",
+        argstr='--metadata %s',
         mandatory=True,
         minlen=2,
-        desc="Metadata corresponding to the inputs",
+        desc='Metadata corresponding to the inputs',
     )
     prefix = traits.Str(
-        "medic",
-        argstr="--out_prefix %s",
+        'medic',
+        argstr='--out_prefix %s',
         usedefault=True,
-        desc="Prefix for output files",
+        desc='Prefix for output files',
     )
     noise_frames = traits.Int(
         0,
-        argstr="--noiseframes %d",
+        argstr='--noiseframes %d',
         usedefault=True,
-        desc="Number of noise frames to remove",
+        desc='Number of noise frames to remove',
     )
     n_cpus = traits.Int(
         4,
-        argstr="--n_cpus %d",
+        argstr='--n_cpus %d',
         usedefault=True,
-        desc="Number of CPUs to use",
+        desc='Number of CPUs to use',
     )
     debug = traits.Bool(
         False,
-        argstr="--debug",
+        argstr='--debug',
         usedefault=True,
-        desc="Enable debugging output",
+        desc='Enable debugging output',
     )
     wrap_limit = traits.Bool(
         False,
-        argstr="--wrap_limit",
+        argstr='--wrap_limit',
         usedefault=True,
-        desc="Turns off some heuristics for phase unwrapping",
+        desc='Turns off some heuristics for phase unwrapping',
     )
 
 
 class _MEDICOutputSpec(TraitedSpec):
     native_field_map = File(
         exists=True,
-        desc="4D native (distorted) space field map in Hertz",
+        desc='4D native (distorted) space field map in Hertz',
     )
     displacement_map = File(
         exists=True,
-        desc="4D displacement map in millimeters",
+        desc='4D displacement map in millimeters',
     )
     field_map = File(
         exists=True,
-        desc="4D undistorted field map in Hertz",
+        desc='4D undistorted field map in Hertz',
     )
 
 
 class MEDIC(CommandLine):
     """Run MEDIC."""
 
-    _cmd = "medic"
+    _cmd = 'medic'
     input_spec = _MEDICInputSpec
     output_spec = _MEDICOutputSpec
 

@@ -349,11 +349,11 @@ class FieldmapEstimation:
         # They must have a bold suffix, multiple echoes, and both mag and phase data
         echos = []
         for f in self.sources:
-            echo = re.search(r"(?<=_echo-)\d+", f.path.name)
+            echo = re.search(r'(?<=_echo-)\d+', f.path.name)
             if echo:
                 echos.append(int(echo.group()))
 
-        echos = sorted(list(set(echos)))
+        echos = sorted(set(echos))
         if len(echos) > 1:
             for echo in echos:
                 has_mag, has_phase = False, False
