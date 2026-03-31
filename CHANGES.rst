@@ -1,3 +1,96 @@
+2.15.0 (September 26, 2025)
+===========================
+Feature release in the 2.15.x series.
+
+This release reworks derivatives a bit to ensure that everything needed for
+downstream processing is placed in the output directory.
+The results from the output directory are aggregated into the workflow outputnode,
+allowing consistency in workflows that can accept precomputed derivatives.
+
+* feat: Save mask to derivatives, pass derivatives to outputnode (#506)
+
+
+2.14.0 (September 22, 2025)
+===========================
+Feature release in the 2.14.x series.
+
+This release requires a recent nitransforms release that in turn requires NumPy 2.
+Since this is a major dependency increment, a new feature release is justified.
+
+* fix: Adapt to transposed ndindex in nitransforms (#501)
+* fix: Adopt some more opinionated ruff rules, manual resolutions (#493)
+
+
+2.13.2 (July 28, 2025)
+======================
+Patch release in the 2.13.x series.
+
+This includes a fix for cases where a scan contributes to multiple ``B0FieldIdentifier``\s.
+
+* [FIX] Fixes conditions of overlapping B0FieldIdentifier, resulting in no estimators (#497)
+
+
+2.13.1 (June 12, 2025)
+======================
+Patch release in the 2.13.x series.
+
+This includes a fix to ``init_fmap_preproc_wf`` node naming.
+
+* FIX: Use the sanitized id when naming through nipype (#495)
+
+
+2.13.0 (May 15, 2025)
+=====================
+Feature release in the 2.13.x series.
+
+This release addresses some longstanding issues with the SyN-SDC workflow,
+improving the registration quality in adult humans by utilizing a spatial prior,
+as well as allowing Laplacians to be up- or down-weighted in the cost function,
+making it more usable across species.
+
+Additionally, this release allows for the use of ``EstimatedTotalReadoutTime`` or
+``EstimatedEchoSpacing``, or a manually provided fallback ``TotalReadoutTime`` value,
+permitting the use of SDCFlows on datasets that do not have reliable timing information
+without introducing incorrect metadata into the datasets.
+
+* fix(syn): Re-enable priors respecting ``sd_priors`` argument (#488)
+* feat: Add workflow arguments for metadata estimates and fallback TRT (#479)
+* feat(syn): Update totalFieldVarianceInVoxel space based on voxel resolution (#487)
+* feat(syn): Allow changing laplacians weights in SyN registration metric (#484)
+* test(syn): Add a test to exercise SyN workflow creation and check parameters (#486)
+
+
+2.12.0 (March 21, 2025)
+=======================
+Feature release in the 2.12.x series.
+
+This release migrates from the deprecated ``niworkflows.reporting``
+module to the ``nireports`` package.
+
+* FIX: AttributeError for _ApplyCoeffsFieldInputSpec (#481)
+* ENH: Allow running SyN SDC without using prior (#480)
+* ENH: Allow estimated and fallback TotalReadoutTime (#477)
+* RF: Transition from niworkflows reporting interfaces (#473)
+* DOC: Fix broken link [skip ci] (#482)
+* MNT: Add `defaults` to `conda` channels in `build-test-publish` GHA (#474)
+* MNT: Update `niworkflows` version to 1.11.0 (#478)
+
+
+2.11.0 (December 18, 2024)
+==========================
+Feature release in the 2.11.x series.
+
+This release supports numpy 2 and Python 3.13.
+
+* FIX: Normalize BIDS-URIs to subject-relative (#458)
+* FIX: Only fit high-frequency spline for SyN-SDC (#457)
+* ENH: Allow Jacobian correction to be toggled on/off (#462)
+* ENH: Dilate fmap and bold masks during coregistration (#463)
+* TEST: Clear registry consistently to avoid order dependency (#464)
+* DOC: Plot correct workflow in init_syn_preprocessing_wf docstring (#460)
+* CI: Drop CircleCI, using GHA only (#459)
+
+
 2.10.0 (July 04, 2024)
 ======================
 Feature release in the 2.10.x series.
@@ -76,7 +169,7 @@ This release includes an updated CLI, which allows ``sdcflows`` to be
 run as a BIDS App. To achieve the previous behavior of ``sdcflows-find-estimators``,
 use the ``-n`` flag.
 
-Addtional bug fixes and enhancements are included.
+Additional bug fixes and enhancements are included.
 
 * FIX: Drop header before resampling image to avoid unsafe cast (#415)
 * FIX: Wrangler now ignores ``part-phase`` EPI files (#407)
@@ -107,7 +200,7 @@ and expansion effects on signal intensity.
 * RF: Use scipy.interpolate.BSpline to construct spline basis (#393)
 * DOC: Use latest sphinx to fix bad sphinx/furo interaction (#390)
 * DOC: Fix missing dependency when merging new data loader (#380)
-* MNT: Update emprical values in test to allow transition to new scipy's BSpline (#387)
+* MNT: Update empirical values in test to allow transition to new scipy's BSpline (#387)
 * MNT: Add pre-commit config (#375)
 * MNT: Add a seed to random generator of coefficients (#368)
 
@@ -261,7 +354,7 @@ that contribute to multiple ``B0FieldIdentifier``\s.
 * MAINT: Housekeeping and more verbose debugging outputs (#302)
 * MAINT: Simplify build tests on GH Actions to latest standards (#282)
 * MAINT: Keep CircleCI settings up to date (#281)
-* MAINT: Unavilable data from OSF remote (datalad) for CircleCI tests. (#277)
+* MAINT: Unavailable data from OSF remote (datalad) for CircleCI tests. (#277)
 * MAINT: Remove unused argument from ``topup`` related interface (#276)
 * CI: Update concurrency, permissions and actions (#313)
 * CI: Roll unittests runner back to Ubuntu 20.04 (#310)
@@ -367,7 +460,7 @@ along with corresponding updates to the CI tests.
 
 2.0.2 (May 11, 2021)
 ====================
-A patch release including hot-fixes and some relevant improvements inteded for the reliability
+A patch release including hot-fixes and some relevant improvements intended for the reliability
 of the new API.
 The most relevant advance is the new :math:`B_0` fieldmap unwarping object which is compatible
 with *NiTranforms* and evades the problem of fiddling with the target image's x-forms.
@@ -570,7 +663,7 @@ A patch release to make *SDCFlows* more amicable to downstream software.
 
 1.2.0 (February 15, 2020)
 -------------------------
-A minor version release that changes phasediff caclulations to improve robustness.
+A minor version release that changes phasediff calculations to improve robustness.
 This release is preparation for *fMRIPrep* 20.0.0.
 
 * FIX: Scale all phase maps to ``[0, 2pi]`` range (#88)

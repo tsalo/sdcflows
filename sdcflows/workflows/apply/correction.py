@@ -21,18 +21,21 @@
 #     https://www.nipreps.org/community/licensing/
 #
 """Applying a fieldmap given its B-Spline coefficients in Hz."""
-from nipype.pipeline import engine as pe
+
 from nipype.interfaces import utility as niu
+from nipype.pipeline import engine as pe
 from niworkflows.engine.workflows import LiterateWorkflow as Workflow
 
 
 def init_unwarp_wf(
     *,
     jacobian=True,
+    use_metadata_estimates=False,
+    fallback_total_readout_time=None,
     free_mem=None,
     omp_nthreads=1,
     debug=False,
-    name="unwarp_wf",
+    name='unwarp_wf',
 ):
     r"""
     Set up a workflow that unwarps the input :abbr:`EPI (echo-planar imaging)` dataset.
@@ -85,40 +88,49 @@ def init_unwarp_wf(
     """
     from niworkflows.interfaces.images import RobustAverage
     from niworkflows.interfaces.nibabel import MergeSeries
-    from sdcflows.interfaces.epi import GetReadoutTime
+
     from sdcflows.interfaces.bspline import ApplyCoeffsField
-    from sdcflows.workflows.ancillary import init_brainextraction_wf
+    from sdcflows.interfaces.epi import GetReadoutTime
     from sdcflows.utils.misc import front as _pop
+    from sdcflows.workflows.ancillary import init_brainextraction_wf
 
     workflow = Workflow(name=name)
     inputnode = pe.Node(
         niu.IdentityInterface(
             fields=[
-                "distorted",
-                "metadata",
-                "fmap_coeff",
-                "fmap2data_xfm",
-                "data2fmap_xfm",
-                "hmc_xforms",
+                'distorted',
+                'metadata',
+                'fmap_coeff',
+                'fmap2data_xfm',
+                'data2fmap_xfm',
+                'hmc_xforms',
             ]
         ),
-        name="inputnode",
+        name='inputnode',
     )
     outputnode = pe.Node(
         niu.IdentityInterface(
             fields=[
-                "fieldmap",
-                "fieldwarp",
-                "corrected",
-                "corrected_ref",
-                "corrected_mask",
+                'fieldmap',
+                'fieldwarp',
+                'corrected',
+                'corrected_ref',
+                'corrected_mask',
             ]
         ),
-        name="outputnode",
+        name='outputnode',
     )
 
-    rotime = pe.Node(GetReadoutTime(), name="rotime")
+    rotime = pe.Node(
+        GetReadoutTime(
+            use_estimate=use_metadata_estimates,
+        ),
+        name='rotime',
+        run_without_submitting=True,
+    )
     rotime.interface._always_run = debug
+    if fallback_total_readout_time is not None:
+        rotime.inputs.fallback = fallback_total_readout_time
 
     # resample is memory-hungry; choose a smaller number of threads
     # if we know how much memory we have to work with
@@ -134,11 +146,11 @@ def init_unwarp_wf(
     resample = pe.Node(
         ApplyCoeffsField(jacobian=jacobian, num_threads=num_threads),
         mem_gb=mem_per_thread * num_threads,
-        name="resample",
+        name='resample',
     )
 
-    merge = pe.Node(MergeSeries(), name="merge")
-    average = pe.Node(RobustAverage(mc_method=None), name="average")
+    merge = pe.Node(MergeSeries(), name='merge')
+    average = pe.Node(RobustAverage(mc_method=None), name='average')
 
     brainextraction_wf = init_brainextraction_wf()
 
